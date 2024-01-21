@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: venkat
+      MYSQL_USER: venkat
+      MYSQL_PASSWORD: venkat
+      MYSQL_ROOT_PASSWORD: venkat
+    volumes:
+      - /home/vamsi/docker/data/mysql:/var/lib/mysql
+  my-venkat-service:
+    image: "venkat:0.0.1-SNAPSHOT"
+    restart: no
+    ports:
+      - "7878:8080"
+    environment:
+      MYSQL_HOST: mysqldb
+    depends_on:
+      - mysqldb
